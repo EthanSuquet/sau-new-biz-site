@@ -1,0 +1,442 @@
+/* ==========================================================
+   St. Ambrose × Mount Mercy — new-business pitch page
+   Built from "sau new biz site.psd" (1920 × 7902). Measurements
+   in comments are PSD pixels at 1920 wide.
+   ========================================================== */
+
+:root {
+  --ink: #606262;          /* body copy, headings on white */
+  --band: #464646;         /* phase bands */
+  --footer: #3f3f3f;
+  --accent: #8bcade;       /* callout + degree cards */
+  --white: #ffffff;
+
+  --font: "acumin-pro", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --stretch: 100%;         /* Archivo's normal width wraps like Acumin Pro's */
+
+  --wrap: 1216px;          /* 352 → 1568 in the PSD */
+  --gutter: clamp(20px, 4vw, 48px);
+
+  --h1: clamp(38px, 3.15vw, 60px);
+  --h2: clamp(32px, 2.6vw, 50px);
+  --sub: clamp(19px, 1.57vw, 30px);
+  --h3: clamp(20px, 1.25vw, 24px);
+  --body: clamp(16px, 0.94vw + 2px, 18px);
+
+  --section-top: clamp(64px, 6vw, 111px);
+  --section-bottom: clamp(72px, 8vw, 160px);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font);
+  font-stretch: var(--stretch);
+  font-size: var(--body);
+  line-height: 1.22;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+p, ul, h1, h2, h3 { margin: 0; }
+ul { padding: 0; list-style: none; }
+strong { font-weight: 700; }
+a { color: inherit; }
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Hero (0 → 1000) ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+  background: #000;
+  color: var(--white);
+  z-index: 0;
+}
+
+.hero__bg,
+.hero__shade { position: absolute; inset: 0; }
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The PSD hangs the photo 73px above the canvas, bottom-aligned. */
+  object-position: 50% 85%;
+  transform-origin: 50% 60%;
+}
+
+/* Color Fill 4: black at 20% */
+.hero__shade { background: rgba(0, 0, 0, 0.2); }
+
+.hero__logo {
+  position: absolute;
+  top: clamp(20px, 1.8vw, 34px);
+  left: clamp(20px, 2.1vw, 40px);
+  width: clamp(170px, 14.2vw, 272px);
+  z-index: 2;
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* "what's your story?" sits at y≈485 of 1000 */
+  padding-bottom: 3vh;
+  z-index: 1;
+}
+
+.hero__title {
+  font-weight: 400;
+  font-size: var(--h1);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-align: center;
+  padding: 0 var(--gutter);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+}
+
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 1px;
+  height: 56px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.hero__cue span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  background: var(--white);
+  animation: cue 2.2s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+@keyframes cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(260%); }
+}
+
+.hero-hold { display: none; }
+
+/* ---------- Chapters ---------- */
+.chapter {
+  position: relative;
+  background: var(--white);
+}
+
+/* Intro (1000 → 1382) */
+.intro {
+  padding: clamp(72px, 7.6vw, 146px) 0 clamp(72px, 8vw, 153px);
+}
+
+.intro__copy {
+  max-width: calc(1236px + var(--gutter) * 2);
+}
+
+/* Phase band (417 tall) */
+.band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 18px);
+  min-height: clamp(240px, 21.7vw, 417px);
+  padding: 48px var(--gutter);
+  background: var(--band);
+  color: var(--white);
+  text-align: center;
+}
+
+.band__title {
+  font-weight: 400;
+  font-size: var(--h2);
+  line-height: 1.05;
+}
+
+.band__sub {
+  font-size: var(--sub);
+  line-height: 1.2;
+  max-width: 32em;
+}
+
+/* Content block under a band */
+.block {
+  padding: var(--section-top) 0 var(--section-bottom);
+}
+
+.h2 {
+  font-weight: 400;
+  font-size: var(--h2);
+  line-height: 1.05;
+  margin-bottom: clamp(24px, 2vw, 40px);
+}
+
+.h3 {
+  font-weight: 700;
+  font-size: var(--h3);
+  line-height: 1.15;
+}
+
+.para { max-width: 1140px; }
+.para + .para { margin-top: clamp(22px, 2vw, 39px); }
+
+/* The story: three lead-ins on a 33px leading */
+.lines p { line-height: 33px; max-width: 1140px; }
+
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 490px) minmax(0, 513px);
+  column-gap: 64px;
+  margin: 50px 0 46px;
+  padding-left: 7px;
+}
+
+.callout {
+  margin-top: clamp(32px, 2.4vw, 46px);
+  max-width: 1138px;
+  background: var(--accent);
+  color: var(--white);
+  padding: 33px clamp(24px, 5vw, 100px) 36px clamp(24px, 2.25vw, 43px);
+}
+
+/* The process */
+.block--process { padding-top: clamp(32px, 2.7vw, 52px); }
+
+.wheel {
+  width: min(944px, calc(100% - var(--gutter) * 2));
+  margin: 0 auto clamp(12px, 1.2vw, 22px);
+  /* The PSD sets the wheel 61px left of centre (427 → 1371), which
+     balances its longer labels on the left. */
+  transform: translateX(-6.5%);
+}
+
+@media (max-width: 900px) {
+  .wheel { transform: none; }
+}
+
+.wheel__img { width: 100%; }
+
+.steps li { line-height: 33px; max-width: 1160px; }
+
+/* The product: three degree cards (362 × 76) */
+.degrees {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 362px));
+  column-gap: clamp(20px, 2.7vw, 52px);
+  margin: 0 0 clamp(36px, 3.4vw, 65px);
+}
+
+.degree {
+  display: grid;
+  place-items: center;
+  min-height: 76px;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--h3);
+  line-height: 1.1;
+  text-align: center;
+}
+
+/* The programs */
+.schools {
+  display: grid;
+  grid-template-columns: minmax(0, 382px) minmax(0, 460px);
+  margin-top: clamp(40px, 3.8vw, 73px);
+  padding-left: 7px;
+}
+
+.school .h3 { margin-bottom: 26px; }
+
+.bullets li,
+.drivers li { line-height: 28px; }
+
+.bullets li::before { content: "• "; }
+
+/* Product development */
+.h3--drivers { margin: clamp(32px, 2.7vw, 51px) 0 26px; }
+
+/* Footer (152 tall) */
+.footer {
+  display: grid;
+  place-items: center;
+  min-height: 152px;
+  padding: 32px var(--gutter);
+  background: var(--footer);
+}
+
+.footer__logo { width: clamp(200px, 14.9vw, 286px); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 900px) {
+  .duo,
+  .schools {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+    padding-left: 0;
+  }
+
+  .degrees {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    max-width: 420px;
+  }
+
+  .lines p,
+  .steps li { line-height: 1.5; }
+
+  .lines p + p,
+  .steps li + li { margin-top: 10px; }
+
+  .callout { padding: 26px 24px 28px; }
+}
+
+/* ==========================================================
+   Scroll motion — modelled on teeej.ai's curtain.js and
+   invictus-tc.com's motion.js. Every class below is added by
+   js/motion.js, so with no JS (or reduced motion) the page
+   is a plain, fully visible scroll.
+   ========================================================== */
+
+/* 1. The curtain stack. The hero holds for 70% of a screen,
+      then each chapter rises over the one before it and holds
+      while the next one covers it. --stick is set per chapter
+      by motion.js so a chapter taller than the screen holds
+      on its last screenful, not its first. */
+.has-stack .hero {
+  position: sticky;
+  top: 0;
+}
+
+.has-stack .hero-hold {
+  display: block;
+  height: 70vh;
+  height: 70svh;
+}
+
+.has-stack .chapter {
+  position: sticky;
+  top: var(--stick, 0px);
+  box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.22);
+}
+
+/* The covered chapter darkens as the next one rides over it. */
+.has-stack .chapter::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--shade, 0);
+  pointer-events: none;
+}
+
+/* 2. Fade-in: copy rises 22px into place, replaying on re-entry. */
+.fade-in {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* 3. Side-in: paired columns slide in from their own edge. */
+.side-in-left,
+.side-in-right {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.side-in-left { transform: translateX(-72px); }
+.side-in-right { transform: translateX(72px); }
+
+.side-in-left.is-visible,
+.side-in-right.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* 4. Band titles: each word rises out of a mask. */
+.words .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.words .w > span {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.words.is-visible .w > span { transform: none; }
+
+.band__sub.fade-in { transition-delay: 0.25s; }
+
+/* 5. Callout wipes open left to right. The wipe is a background layer,
+      not a clip-path on the box: Chrome's IntersectionObserver counts the
+      target's own clip-path, so a fully clipped box never "enters" view. */
+.wipe {
+  position: relative;
+  background: transparent;
+}
+
+.wipe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 1.1s cubic-bezier(0.65, 0, 0.2, 1);
+}
+
+.wipe.is-visible::before { transform: none; }
+
+.wipe > p {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.6s ease 0.45s, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.45s;
+}
+
+.wipe.is-visible > p { opacity: 1; transform: none; }
+
+/* Hero cue fades as the hero starts to move. */
+.has-stack .hero__cue { transition: opacity 0.4s ease; }
+.is-scrolled .hero__cue { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cue span { animation: none; }
+}
