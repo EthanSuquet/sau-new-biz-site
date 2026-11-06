@@ -74,17 +74,22 @@ a { color: inherit; }
 .hero__bg,
 .hero__shade { position: absolute; inset: 0; }
 
-.hero__bg img {
+.hero__media {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* The PSD hangs the photo 73px above the canvas, bottom-aligned. */
-  object-position: 50% 85%;
-  transform-origin: 50% 60%;
+  object-position: 50% 50%;
+  transform-origin: 50% 55%;
 }
 
-/* Color Fill 4: black at 20% */
-.hero__shade { background: rgba(0, 0, 0, 0.2); }
+/* The PSD's Color Fill 4 (black at 20%) was for the photo. The header loop
+   comes pre-darkened, so the shade starts clear and only darkens as
+   chapter 1 rises over the hero (motion.js). */
+.hero__shade {
+  background: #000;
+  opacity: 0;
+}
 
 .hero__logo {
   position: absolute;

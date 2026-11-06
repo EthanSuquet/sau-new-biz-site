@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&display=swap" rel="stylesheet">
 
-  <link rel="preload" as="image" href="img/hero.jpg">
+  <link rel="preload" as="image" href="img/header-poster.jpg">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -26,7 +26,14 @@
   <!-- ===== Hero: pinned backdrop; chapter 1 rises over it ===== -->
   <header class="hero" id="top">
     <div class="hero__bg">
-      <img src="img/hero.jpg" alt="Sunrise over Pittsburgh's rivers, bridges and skyline" width="2400" height="1340">
+      <!-- Header loop, self-hosted (was Vimeo 1244392456) so it starts with the
+           page instead of waiting on Vimeo's player. Muted + playsinline is what
+           lets phones autoplay it. Phones get the lighter 1280 encode. -->
+      <video class="hero__media" autoplay muted loop playsinline preload="auto"
+             poster="img/header-poster.jpg" aria-hidden="true" disablepictureinpicture>
+        <source src="video/header-1280.mp4" type="video/mp4" media="(max-width: 900px)">
+        <source src="video/header-1920.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="hero__shade" aria-hidden="true"></div>
     <a class="hero__logo" href="#top" aria-label="The Storyhaus Agency">

@@ -23,7 +23,16 @@
    ========================================================== */
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) return;
+  const video = document.querySelector(".hero__media");
+
+  // Reduced motion: hold the header loop on its poster frame.
+  if (reduce) {
+    if (video) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    }
+    return;
+  }
 
   const root = document.documentElement;
   const SCRUB = 0.4; // seconds the scrubbed timelines take to catch up (Teeej's value)
@@ -129,6 +138,20 @@
     return chapterTop(chapters.indexOf(ch)) + y;
   };
 
+  // ---------- header loop: only decode while it can be seen ----------
+  // Once chapter 1 has fully covered the hero (or, without the stack, the
+  // hero has scrolled away) the video pauses, and resumes on the way back up.
+  if (video) {
+    const syncVideo = () => {
+      const limit = root.classList.contains("has-stack") ? chapterTop(0) : hero.offsetHeight;
+      const show = window.scrollY < limit;
+      if (show && video.paused) video.play().catch(() => {});
+      else if (!show && !video.paused) video.pause();
+    };
+    window.addEventListener("scroll", syncVideo, { passive: true });
+    syncVideo();
+  }
+
   // ---------- GSAP: scrubbed hero, shade, wheel, cards ----------
   const start = () => {
     if (!window.gsap || !window.ScrollTrigger) return;
@@ -147,7 +170,7 @@
           invalidateOnRefresh: true,
         },
       });
-      tl.fromTo(".hero__bg img", { scale: 1 }, { scale: 1.16, ease: "none", duration: 1 }, 0);
+      tl.fromTo(".hero__media", { scale: 1 }, { scale: 1.16, ease: "none", duration: 1 }, 0);
       tl.to(".hero__content", { opacity: 0, y: -42, ease: "none", duration: 0.45 }, 0);
       tl.to(".hero__logo", { opacity: 0, ease: "none", duration: 0.35 }, 0.1);
     }
@@ -158,10 +181,10 @@
       chapters.forEach((ch, i) => {
         const under = covered[i];
         const target = under === hero ? ".hero__shade" : under;
-        const prop = under === hero ? { opacity: 0.2 } : { "--shade": 0 };
-        const to = under === hero ? { opacity: 0.6 } : { "--shade": 0.3 };
+        const prop = under === hero ? { opacity: 0 } : { "--shade": 0 };
+        const to = under === hero ? { opacity: 0.5 } : { "--shade": 0.3 };
         // White copy only starts to dim once the cover is past halfway, so
-        // nothing still being read goes grey. The photo dims the whole way.
+        // nothing still being read goes grey. The video dims the whole way.
         const lead = under === hero ? 1 : 0.5;
         gsap.fromTo(target, prop, {
           ...to,
