@@ -84,7 +84,7 @@
   observe(wipes, "0px 0px -12% 0px");
 
   // ---------- 2. fade-in ----------
-  const FADE = ".intro__copy, .duo__col, .h2, .h3, .lines p, .para, .steps li, .bullets li, .drivers li, .band__sub";
+  const FADE = ".intro__copy, .intro .btn, .duo__col, .h2, .h3, .lines p, .para, .steps li, .bullets li, .drivers li, .band__sub";
   const SKIP = [wide.matches ? ".side" : null, ".callout", ".degrees"].filter(Boolean).join(", ");
   const fades = $$(FADE).filter((el) => !el.closest(SKIP));
   fades.forEach((el) => el.classList.add("fade-in"));

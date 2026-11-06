@@ -168,9 +168,112 @@ a { color: inherit; }
   color: var(--white);
 }
 
-.intro__copy,
+.intro__inner,
 .overview__copy {
   max-width: calc(1236px + var(--gutter) * 2);
+}
+
+/* ---------- Learn More button (white outline on the blue intro) ----------
+   Hover borrows the page's own motion: a white fill wipes in from the left
+   with the callout's easing (and out to the right on leave), the label rolls
+   up through a mask like the band titles, and the arrow steps forward. */
+.btn {
+  --ease-wipe: cubic-bezier(0.65, 0, 0.2, 1);
+  --ease-rise: cubic-bezier(0.2, 0.7, 0.2, 1);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(28px, 2.4vw, 44px);
+  padding: 16px 28px 16px 30px;
+  border: 1.5px solid var(--white);
+  background: transparent;
+  color: var(--white);
+  font-size: var(--body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 0.45s var(--ease-wipe);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.55s var(--ease-wipe);
+}
+
+.btn__label {
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+}
+
+.btn__roll {
+  display: block;
+  transition: transform 0.6s var(--ease-rise);
+}
+
+/* The incoming copy of the label waits one line below the visible one. */
+.btn__roll::after {
+  content: attr(data-label);
+  display: block;
+}
+
+.btn__arrow {
+  flex: none;
+  transition: transform 0.6s var(--ease-rise);
+}
+
+.btn:hover,
+.btn:focus-visible { color: var(--band); }
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+.btn:hover .btn__roll,
+.btn:focus-visible .btn__roll { transform: translateY(-50%); }
+
+.btn:hover .btn__arrow,
+.btn:focus-visible .btn__arrow { transform: translateX(6px); }
+
+.btn:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 4px;
+}
+
+.btn:active::before { transition-duration: 0.2s; }
+
+/* The scroll fade-in would otherwise replace the color transition, and a
+   blanket delay would lag the hover. The button arrives 0.15s after the copy
+   above it; its hover color still responds at once. */
+.intro .btn.fade-in {
+  transition:
+    opacity 0.7s ease 0.15s,
+    transform 0.7s var(--ease-rise) 0.15s,
+    color 0.45s var(--ease-wipe);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before,
+  .btn__roll,
+  .btn__arrow { transition: none; }
+
+  .btn:hover .btn__roll,
+  .btn:focus-visible .btn__roll,
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow { transform: none; }
 }
 
 /* Overview (added 2026-11-06): ink on white like every other white
