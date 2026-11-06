@@ -19,7 +19,9 @@
 
   --h1: clamp(38px, 3.15vw, 60px);
   --h2: clamp(32px, 2.6vw, 50px);
-  --sub: clamp(19px, 1.57vw, 30px);
+  /* Copy under the band titles: 24px at 1920 (the PSD has 30; Ethan wants 24),
+     held at 4/3 of body copy so it stays one step above it at every width. */
+  --sub: calc(var(--body) * 4 / 3);
   --h3: clamp(20px, 1.25vw, 24px);
   --body: clamp(16px, 0.94vw + 2px, 18px);
 
@@ -343,6 +345,13 @@ a { color: inherit; }
   display: block;
   height: 70vh;
   height: 70svh;
+}
+
+/* Pause between a finished white section and the next gray band. Added by
+   motion.js after each chapter except the last. */
+.chapter-hold {
+  height: 32vh;
+  height: 32svh;
 }
 
 .has-stack .chapter {

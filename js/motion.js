@@ -110,6 +110,15 @@
   if (canStack()) {
     root.classList.add("has-stack");
     chapters.forEach((ch, i) => (ch.style.zIndex = String(i + 1)));
+    // A hold after every chapter but the last: the finished white section
+    // stays put for a beat before the next gray band starts to rise over it
+    // (the same pause the hero gets from .hero-hold).
+    chapters.slice(0, -1).forEach((ch) => {
+      const hold = document.createElement("div");
+      hold.className = "chapter-hold";
+      hold.setAttribute("aria-hidden", "true");
+      ch.after(hold);
+    });
     setSticks();
   }
 
@@ -121,10 +130,13 @@
   // Scroll positions are computed from layout (heights), never from
   // getBoundingClientRect: a stuck chapter reports where it is pinned, not
   // where it sits in the flow, which would throw every trigger off.
-  const holdEl = document.querySelector(".hero-hold");
+  // A chapter's flow position = the heights of everything before it in
+  // <main>: the hero, its hold, earlier chapters and their holds.
   const chapterTop = (idx) => {
-    let y = hero.offsetHeight + (holdEl ? holdEl.offsetHeight : 0);
-    for (let i = 0; i < idx; i++) y += chapters[i].offsetHeight;
+    let y = 0;
+    for (let n = chapters[idx].previousElementSibling; n; n = n.previousElementSibling) {
+      y += n.offsetHeight;
+    }
     return y;
   };
   const flowTop = (el) => {
