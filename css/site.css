@@ -176,7 +176,7 @@ a { color: inherit; }
 /* ---------- Learn More button (white outline on the blue intro) ----------
    Hover borrows the page's own motion: a white fill wipes in from the left
    with the callout's easing (and out to the right on leave), the label rolls
-   up through a mask like the band titles, and the arrow steps forward. */
+   up through a mask like the band titles. */
 .btn {
   --ease-wipe: cubic-bezier(0.65, 0, 0.2, 1);
   --ease-rise: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -184,9 +184,8 @@ a { color: inherit; }
   isolation: isolate;
   display: inline-flex;
   align-items: center;
-  gap: 14px;
   margin-top: clamp(28px, 2.4vw, 44px);
-  padding: 16px 28px 16px 30px;
+  padding: 16px 30px;
   border: 1.5px solid var(--white);
   background: transparent;
   color: var(--white);
@@ -227,11 +226,6 @@ a { color: inherit; }
   display: block;
 }
 
-.btn__arrow {
-  flex: none;
-  transition: transform 0.6s var(--ease-rise);
-}
-
 .btn:hover,
 .btn:focus-visible { color: var(--band); }
 
@@ -243,9 +237,6 @@ a { color: inherit; }
 
 .btn:hover .btn__roll,
 .btn:focus-visible .btn__roll { transform: translateY(-50%); }
-
-.btn:hover .btn__arrow,
-.btn:focus-visible .btn__arrow { transform: translateX(6px); }
 
 .btn:focus-visible {
   outline: 2px solid var(--white);
@@ -267,13 +258,10 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .btn::before,
-  .btn__roll,
-  .btn__arrow { transition: none; }
+  .btn__roll { transition: none; }
 
   .btn:hover .btn__roll,
-  .btn:focus-visible .btn__roll,
-  .btn:hover .btn__arrow,
-  .btn:focus-visible .btn__arrow { transform: none; }
+  .btn:focus-visible .btn__roll { transform: none; }
 }
 
 /* Overview (added 2026-11-06): ink on white like every other white
