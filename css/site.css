@@ -156,14 +156,26 @@ a { color: inherit; }
   background: var(--white);
 }
 
-/* Intro (1000 → 1382) */
-.intro {
+/* Intro (1000 → 1382). White on blue since 2026-11-06 (Ethan): the
+   callout's accent fill across the whole section. */
+.intro,
+.overview {
   padding: clamp(72px, 7.6vw, 146px) 0 clamp(72px, 8vw, 153px);
 }
 
-.intro__copy {
+.intro {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.intro__copy,
+.overview__copy {
   max-width: calc(1236px + var(--gutter) * 2);
 }
+
+/* Overview (added 2026-11-06): ink on white like every other white
+   section, on the intro's measure. */
+.overview .para { max-width: none; }
 
 /* Phase band (417 tall) */
 .band {
@@ -353,6 +365,19 @@ a { color: inherit; }
   height: 32vh;
   height: 32svh;
 }
+
+/* Every chapter is at least a screen tall while stacking. A shorter one
+   would hold with a gap above it, and whatever sits underneath (the hero
+   video, for the intro + overview chapter) would show through. Extra
+   height lands at the bottom as white; the footer stays at the foot. */
+.has-stack .chapter {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.has-stack .footer { margin-top: auto; }
 
 .has-stack .chapter {
   position: sticky;
